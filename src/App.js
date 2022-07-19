@@ -1,9 +1,9 @@
 // import "./App.css";
-import Board from "./components/Board";
-import Keyboard from "./components/Keyboard";
+import Board from "./components/Board/Board";
+import Keyboard from "./components/Keyboard/Keyboard";
+import GameOver from "./components/GameOver/GameOver";
 import { createContext, useEffect, useState } from "react";
 import { boardDefault, generateWordSet } from "./Words";
-import GameOver from "./components/GameOver";
 
 export const AppContext = createContext();
 
@@ -24,7 +24,7 @@ function App() {
     useEffect(() => {
         generateWordSet().then((words) => {
             setWordSet(words.wordSet);
-            setCorrectWord(words.todaysWord);
+            setCorrectWord(words.todaysWord.toUpperCase());
         });
     }, []);
 
@@ -56,7 +56,7 @@ function App() {
         for (let i = 0; i < 5; i++) {
             currWord += board[currAttempt.attempt][i];
         }
-
+        currWord = currWord.toUpperCase();
         if (currWord === correctWord) {
             setGameOver({ gameOver: true, guessedWord: true });
             return;
@@ -70,23 +70,12 @@ function App() {
             setCurrAttempt({ attempt: currAttempt.attempt + 1, letterPos: 0 });
         } else {
             alert("Word Not Found");
-            // const newBoard = [...board];
-            // for (let i = currAttempt.letterPos; i >= 0; i--) {
-            //     newBoard[currAttempt.attempt][i] = "";
-            // }
-            // setBoard(newBoard);
-            // setCurrAttempt({
-            //     ...currAttempt,
-            //     letterPos: 0,
-            // });
         }
-
-        
     };
     return (
         <div className="text-center w-screen h-screen text-white bg-[#121212]">
-            <nav className="h-[60px] w-full m-0 border-b-[1px] border-[grey] grid place-items-center">
-                <h1 className="m-0 text-white text-[45px]">Wordle</h1>
+            <nav className="h-16 w-full m-0 border-b-[1px] border-[grey] grid place-items-center">
+                <div className="text-white text-[2rem]">Wordle</div>
             </nav>
             <AppContext.Provider
                 value={{
