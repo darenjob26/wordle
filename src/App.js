@@ -58,6 +58,7 @@ function App() {
             currWord += board[currAttempt.attempt][i];
         }
         currWord = currWord.toUpperCase();
+        console.log(currWord, correctWord)
         if (currWord === correctWord) {
             setGameOver({ gameOver: true, guessedWord: true });
             return;
