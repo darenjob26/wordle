@@ -23,6 +23,7 @@ function App() {
 
     useEffect(() => {
         generateWordSet().then((words) => {
+            console.log('v.1')
             setWordSet(words.wordSet);
             setCorrectWord(words.todaysWord.toUpperCase());
         });
