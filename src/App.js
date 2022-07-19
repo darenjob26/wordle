@@ -58,7 +58,15 @@ function App() {
             currWord += board[currAttempt.attempt][i];
         }
         currWord = currWord.toUpperCase();
-        console.log(currWord, correctWord)
+        console.log(currWord, correctWord);
+
+        if (wordSet.has(currWord.toLowerCase())) {
+            setCurrAttempt({ attempt: currAttempt.attempt + 1, letterPos: 0 });
+        } else {
+            alert("Word Not Found");
+        }
+
+        
         if (currWord === correctWord) {
             setGameOver({ gameOver: true, guessedWord: true });
             return;
@@ -68,11 +76,7 @@ function App() {
             setGameOver({ gameOver: true, guessedWord: false });
         }
 
-        if (wordSet.has(currWord.toLowerCase())) {
-            setCurrAttempt({ attempt: currAttempt.attempt + 1, letterPos: 0 });
-        } else {
-            alert("Word Not Found");
-        }
+        
     };
     return (
         <div className="text-center w-screen h-screen text-white bg-[#121212]">
