@@ -66,7 +66,7 @@ function App() {
                 setGameOver({ gameOver: true, guessedWord: true });
             }
 
-            console.log(1)
+            console.log(1, wordSet)
             let found = wordSet.includes(currWord)
             console.log(2, found)
             if (found) {
