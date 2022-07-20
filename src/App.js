@@ -60,14 +60,16 @@ function App() {
                 currWord += board[currAttempt.attempt][i];
             }
 
-            if (currAttempt.attempt === 5) {
-                setGameOver({ gameOver: true, guessedWord: false });
-            } else if (currWord === correctWord) {
-                setGameOver({ gameOver: true, guessedWord: true });
-            }
-
-            let found = wordSet.has(currWord)
+            let found = wordSet.has(currWord);
             if (found) {
+                if (currAttempt.attempt === 5) {
+                    setGameOver({ gameOver: true, guessedWord: false });
+                }
+
+                if (currWord === correctWord) {
+                    setGameOver({ gameOver: true, guessedWord: true });
+                }
+
                 setCurrAttempt({
                     attempt: currAttempt.attempt + 1,
                     letterPos: 0,
@@ -76,7 +78,8 @@ function App() {
                 setNotFound(true);
                 setTimeout(() => {
                     setNotFound(false);
-                }, 1200);}
+                }, 1200);
+            }
         }
     };
     return (
