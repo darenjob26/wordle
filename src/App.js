@@ -13,7 +13,7 @@ function App() {
         attempt: 0,
         letterPos: 0,
     });
-    const [wordSet, setWordSet] = useState([]);
+    const [wordSet, setWordSet] = useState(new Set());
     const [disabledLetters, setDisabledLetters] = useState([]);
     const [almostLetters, setAlmostLetters] = useState([]);
     const [correctLetters, setCorrectLetters] = useState([]);
@@ -53,7 +53,7 @@ function App() {
         });
     };
 
-    const onEnter = async () => {
+    const onEnter = () => {
         if (currAttempt.letterPos === 5) {
             let currWord = "";
             for (let i = 0; i < 5; i++) {
@@ -67,7 +67,7 @@ function App() {
             }
 
             console.log(1, wordSet)
-            let found = wordSet.includes(currWord)
+            let found = wordSet.has(currWord)
             console.log(2, found)
             if (found) {
                 setCurrAttempt({
