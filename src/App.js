@@ -13,7 +13,7 @@ function App() {
         attempt: 0,
         letterPos: 0,
     });
-    const [wordSet, setWordSet] = useState(new Set());
+    const [wordSet, setWordSet] = useState([]);
     const [disabledLetters, setDisabledLetters] = useState([]);
     const [almostLetters, setAlmostLetters] = useState([]);
     const [correctLetters, setCorrectLetters] = useState([]);
@@ -66,13 +66,16 @@ function App() {
                 setGameOver({ gameOver: true, guessedWord: true });
             }
 
-            let found = await wordSet.has(currWord)
+            console.log(1)
+            let found = wordSet.includes(currWord)
+            console.log(2, found)
             if (found) {
                 setCurrAttempt({
                     attempt: currAttempt.attempt + 1,
                     letterPos: 0,
                 });
             } else {
+                console.log(3)
                 setNotFound(true);
                 setTimeout(() => {
                     setNotFound(false);
