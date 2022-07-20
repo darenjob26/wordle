@@ -22,6 +22,7 @@ function App() {
         gameOver: false,
         guessedWord: false,
     });
+    const [notFound, setNotFound] = useState(false);
 
     useEffect(() => {
         generateWordSet().then((words) => {
@@ -52,7 +53,7 @@ function App() {
         });
     };
 
-    const onEnter = () => {
+    const onEnter = async () => {
         if (currAttempt.letterPos === 5) {
             let currWord = "";
             for (let i = 0; i < 5; i++) {
@@ -65,14 +66,17 @@ function App() {
                 setGameOver({ gameOver: true, guessedWord: true });
             }
 
-            if (wordSet.has(currWord)) {
+            let found = await wordSet.has(currWord)
+            if (found) {
                 setCurrAttempt({
                     attempt: currAttempt.attempt + 1,
                     letterPos: 0,
                 });
             } else {
-                alert("Word Not Found");
-            }
+                setNotFound(true);
+                setTimeout(() => {
+                    setNotFound(false);
+                }, 1200);}
         }
     };
     return (
@@ -98,6 +102,7 @@ function App() {
                     setAlmostLetters,
                     correctLetters,
                     setCorrectLetters,
+                    notFound,
                 }}
             >
                 <div className="w-screen h-[calc(100%-170px)] flex items-center pt-12 flex-col">
