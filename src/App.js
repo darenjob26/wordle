@@ -15,6 +15,8 @@ function App() {
     });
     const [wordSet, setWordSet] = useState(new Set());
     const [disabledLetters, setDisabledLetters] = useState([]);
+    const [almostLetters, setAlmostLetters] = useState([]);
+    const [correctLetters, setCorrectLetters] = useState([]);
     const [correctWord, setCorrectWord] = useState("");
     const [gameOver, setGameOver] = useState({
         gameOver: false,
@@ -23,9 +25,8 @@ function App() {
 
     useEffect(() => {
         generateWordSet().then((words) => {
-            console.log('v.1')
             setWordSet(words.wordSet);
-            setCorrectWord(words.todaysWord.toUpperCase());
+            setCorrectWord(words.todaysWord);
         });
     }, []);
 
@@ -53,20 +54,19 @@ function App() {
 
     const onEnter = () => {
         if (currAttempt.letterPos !== 5) return;
+
         let currWord = "";
         for (let i = 0; i < 5; i++) {
             currWord += board[currAttempt.attempt][i];
         }
-        currWord = currWord.toUpperCase();
         console.log(currWord, correctWord);
 
-        if (wordSet.has(currWord.toLowerCase())) {
+        if (wordSet.has(currWord)) {
             setCurrAttempt({ attempt: currAttempt.attempt + 1, letterPos: 0 });
         } else {
             alert("Word Not Found");
         }
 
-        
         if (currWord === correctWord) {
             setGameOver({ gameOver: true, guessedWord: true });
             return;
@@ -75,8 +75,6 @@ function App() {
         if (currAttempt.attempt === 5) {
             setGameOver({ gameOver: true, guessedWord: false });
         }
-
-        
     };
     return (
         <div className="text-center w-screen h-screen text-white bg-[#121212]">
@@ -97,6 +95,10 @@ function App() {
                     setDisabledLetters,
                     gameOver,
                     setGameOver,
+                    almostLetters,
+                    setAlmostLetters,
+                    correctLetters,
+                    setCorrectLetters,
                 }}
             >
                 <div className="w-screen h-[calc(100%-170px)] flex items-center pt-12 flex-col">
