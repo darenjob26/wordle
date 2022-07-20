@@ -26,6 +26,7 @@ function App() {
     useEffect(() => {
         generateWordSet().then((words) => {
             setWordSet(words.wordSet);
+            console.log('todays word: ', words.todaysWord)
             setCorrectWord(words.todaysWord);
         });
     }, []);
@@ -59,13 +60,8 @@ function App() {
         for (let i = 0; i < 5; i++) {
             currWord += board[currAttempt.attempt][i];
         }
-        console.log(currWord, correctWord);
-
-        if (wordSet.has(currWord)) {
-            setCurrAttempt({ attempt: currAttempt.attempt + 1, letterPos: 0 });
-        } else {
-            alert("Word Not Found");
-        }
+        console.log("currWord: ", currWord, "correctWord: ", correctWord);
+        console.log();
 
         if (currWord === correctWord) {
             setGameOver({ gameOver: true, guessedWord: true });
@@ -74,6 +70,12 @@ function App() {
 
         if (currAttempt.attempt === 5) {
             setGameOver({ gameOver: true, guessedWord: false });
+        }
+
+        if (wordSet.has(currWord)) {
+            setCurrAttempt({ attempt: currAttempt.attempt + 1, letterPos: 0 });
+        } else {
+            alert("Word Not Found");
         }
     };
     return (
